@@ -10,54 +10,56 @@ class LoginPage extends StatelessWidget {
       title: 'Личный кабинет',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
+        //resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: Text('Личный кабинет'),
           leading: Image.asset('assets/logo.png'),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              login,
-              password,
-              buttonEnter,
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  _createText(Colors.black, 'Нет учетной записи? '),
-                  _createText(Colors.blue, 'Зарегистрируйтесь!')
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  _createText(Colors.black, 'Забыли пароль? '),
-                  _createText(Colors.blue, 'Напомнить!')
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _createButtonIcon(Colors.blue, Colors.black, Icons.credit_card, 'Оплатить'),
-                  _createButtonIcon(Colors.blue, Colors.black, Icons.location_on, 'Офисы рядом'),
-                ],
-              )
-            ],
+          child: SingleChildScrollView(
+            child:  Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                login,
+                password,
+                buttonEnter,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    _createText(Colors.black, 'Нет учетной записи? '),
+                    _createText(Colors.blue, 'Зарегистрируйтесь!')
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    _createText(Colors.black, 'Забыли пароль? '),
+                    _createText(Colors.blue, 'Напомнить!')
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _createButtonIcon(Colors.blue, Colors.black, Icons.credit_card, 'Оплатить'),
+                      _createButtonIcon(Colors.blue, Colors.black, Icons.location_on, 'Офисы рядом'),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
+        )
       ),
     );
   }
 
 
   final login = Container(
-    margin: EdgeInsets.all(8),
+    padding: EdgeInsets.all(8.0),
+    margin: EdgeInsets.only(bottom: 20.0),
+    //margin: EdgeInsets.all(8),
     child: TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -72,7 +74,9 @@ class LoginPage extends StatelessWidget {
   );
 
   final password = Container(
-    margin: EdgeInsets.all(8),
+    padding: EdgeInsets.all(8.0),
+    margin: EdgeInsets.only(bottom: 20.0),
+    //margin: EdgeInsets.all(8),
     child: TextFormField(
       autofocus: false,
       obscureText: true,
