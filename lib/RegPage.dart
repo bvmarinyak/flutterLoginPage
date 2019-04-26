@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class RegPage extends StatefulWidget{
   RegPage({Key key}) : super(key: key);
@@ -13,6 +14,8 @@ class _RegPageState extends State<RegPage>{
   bool _autovalidate = false;
   bool _valueCheckBox1 = false;
   bool _valueCheckBox2 = false;
+
+  var controller = new MaskedTextController(mask: '+00000000000');
 
   String _name;
   String _secondName;
@@ -169,6 +172,7 @@ class _RegPageState extends State<RegPage>{
       margin: EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
       child: TextFormField(
         keyboardType: TextInputType.text,
+        controller: controller,
         autofocus: false,
         decoration: InputDecoration(
             hintText: 'Мобильный номер',
@@ -177,8 +181,8 @@ class _RegPageState extends State<RegPage>{
                 borderRadius: BorderRadius.circular(5.0)
             )
         ),
-        validator: _validatePhoneNumber,
-        onEditingComplete: _validateInputs,
+        //validator: _validatePhoneNumber,
+        //onEditingComplete: _validateInputs,
         onSaved: (String value){
           _phoneNumber = value;
         },
