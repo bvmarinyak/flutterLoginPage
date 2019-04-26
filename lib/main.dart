@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter_task1/RegPage.dart';
 
-void main() => runApp(LoginPage());
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Личный кабинет',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: LoginPage()
+    );
+  }
+
+}
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
   @override
   _LoginPageState createState() => _LoginPageState();
-
 }
 
 class _LoginPageState extends State<LoginPage>{
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autovalidate = false;
   String _login;
@@ -18,29 +33,34 @@ class _LoginPageState extends State<LoginPage>{
   Widget loginWidget;
   Widget passwordWidget;
   Widget buttonEnter;
+  Widget hyperLinkTextReg;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Личный кабинет',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Scaffold(
-        //resizeToAvoidBottomPadding: false,
-          appBar: AppBar(
-            title: Text('Личный кабинет'),
-            leading: Image.asset('assets/logo.png'),
-          ),
-          body: Center(
-            child: SingleChildScrollView(
+    return Scaffold(
+      //resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          title: Text('Личный кабинет'),
+          leading: Image.asset('assets/logo.png'),
+        ),
+        body: Center(
+          child: SingleChildScrollView(
               child:  Form(
                 key: _formKey,
                 autovalidate: _autovalidate,
-                child: FormUI()
+                child: FormUI(),
+                /*child: RaisedButton(
+                        child: Text('Open route'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => RegPage()),
+                          );
+                        },
+                      ),*/
               )
-            ),
-          )
-      ),
+          ),
+        )
     );
   }
 
@@ -55,24 +75,14 @@ class _LoginPageState extends State<LoginPage>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _createText(Colors.black, 'Нет учетной записи? '),
-            InkWell(
-              onTap: (){
-                print('Зарегстрируйтесь!');
-              },
-              child: _createText(Colors.blue, 'Зарегистрируйтесь!'),
-            )
+            _createHyperLinkText(Colors.blue, 'Зарегистрируйтесь')
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _createText(Colors.black, 'Забыли пароль? '),
-            InkWell(
-              onTap: (){
-                print('Напомнить!');
-              },
-              child: _createText(Colors.blue, 'Напомнить!'),
-            )
+            _createHyperLinkText(Colors.blue, 'Напомнить')
           ],
         ),
         Container(
@@ -197,6 +207,33 @@ class _LoginPageState extends State<LoginPage>{
     );
   }
 
+  Container _createHyperLinkText(Color color, String label){
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      child: RichText(
+        text: TextSpan(
+          text: label,
+          style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: color
+          ),
+          recognizer: TapGestureRecognizer()
+            ..onTap = (){
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => RegPage()
+                )
+            );
+          }
+        ),
+      )
+    );
+  }
+
+
+
+
   void _validateInputs(){
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
@@ -219,7 +256,31 @@ class _LoginPageState extends State<LoginPage>{
   }
 
   static String _validatePassword(String value){
+    bool chars = value.length >= 8;
+    bool number = value.contains(RegExp(r'\d'), 0);
+    bool upperCaseChar = value.contains(RegExp(r'[A-Z]'), 0);
+    bool specialChar = !value.contains(RegExp(r'^[\w&.-]+$'), 0);
     if(value.isNotEmpty){
+      if(chars && number && upperCaseChar && specialChar){
+        return null;
+      }else{
+        if(!chars){
+          return "Пароль должен быть больше 7 символов";
+        }
+        if(!number){
+          return "Пароль должен содержать цифру";
+        }
+        if(!upperCaseChar){
+          return "Пароль должен содержать заглавную букву";
+        }
+        if(!specialChar){
+          return "Пароль должен содержать специальный символ";
+        }
+      }
+    }else{
+      return 'Пароль не может быть пустым';
+    }
+    /*if(value.isNotEmpty){
       Pattern pattern = r'(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}';
       RegExp regExp = RegExp(pattern);
       if(!regExp.hasMatch(value)){
@@ -232,6 +293,6 @@ class _LoginPageState extends State<LoginPage>{
       }
     }else{
       return 'Пароль не может быть пустым';
-    }
+    }*/
   }
 }
