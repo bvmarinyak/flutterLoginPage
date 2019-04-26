@@ -20,15 +20,6 @@ class _RegPageState extends State<RegPage>{
   String _login;
   String _phoneNumber;
 
- //Widget dropDownButton;
-  Widget nameWidget;
-  Widget secondNameWidget;
-  Widget patronymicWidget;
-  Widget emailWidget;
-  Widget phoneNumberWidget;
-  Widget buttonReg;
-  Widget checkBox1;
-  Widget checkBox2;
 
   List<String> flul = List<String>();
   String _dropDownValue;
@@ -62,14 +53,14 @@ class _RegPageState extends State<RegPage>{
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         _createDropDownButton(),
-        nameWidget,
-        secondNameWidget,
-        patronymicWidget,
-        emailWidget,
-        phoneNumberWidget,
+        _createName(),
+        _createSecondName(),
+        _createPatronymic(),
+        _createEmail(),
+        _createPhoneNumber(),
         _createCheckBox1('Title1'),
         _createCheckBox2('Title2'),
-        buttonReg,
+        _createButtonReg(),
       ],
     );
   }
@@ -80,11 +71,13 @@ class _RegPageState extends State<RegPage>{
   @override
   void initState(){
     super.initState();
-
     flul.addAll(['Физическое лицо', 'Юридическое лицо']);
     _dropDownValue = flul.elementAt(0);
 
-    nameWidget = Container(
+  }
+
+  Container _createName(){
+      return Container(
       margin: EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
       child: TextFormField(
         keyboardType: TextInputType.text,
@@ -103,8 +96,10 @@ class _RegPageState extends State<RegPage>{
         },
       ),
     );
+  }
 
-    secondNameWidget = Container(
+  Container _createSecondName(){
+    return Container(
       margin: EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
       child: TextFormField(
         keyboardType: TextInputType.text,
@@ -123,8 +118,10 @@ class _RegPageState extends State<RegPage>{
         },
       ),
     );
+  }
 
-    patronymicWidget = Container(
+  Container _createPatronymic(){
+    return Container(
       margin: EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
       child: TextFormField(
         keyboardType: TextInputType.text,
@@ -143,8 +140,10 @@ class _RegPageState extends State<RegPage>{
         },
       ),
     );
+  }
 
-    emailWidget = Container(
+  Container _createEmail(){
+    return Container(
       margin: EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
       child: TextFormField(
         keyboardType: TextInputType.emailAddress,
@@ -163,8 +162,10 @@ class _RegPageState extends State<RegPage>{
         },
       ),
     );
+  }
 
-    phoneNumberWidget = Container(
+  Container _createPhoneNumber(){
+    return Container(
       margin: EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
       child: TextFormField(
         keyboardType: TextInputType.text,
@@ -183,35 +184,10 @@ class _RegPageState extends State<RegPage>{
         },
       ),
     );
+  }
 
-    /*checkBox1 = Container(
-      margin:  EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: CheckboxListTile(
-            title: Text('Text1'),
-            controlAffinity: ListTileControlAffinity.leading,
-            value: _valueCheckBox1,
-            onChanged: _valueCheckBox1Changed
-        ),
-      ),
-    );
-
-    checkBox2 = Container(
-      margin:  EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: CheckboxListTile(
-            title: Text('Text2'),
-            controlAffinity: ListTileControlAffinity.leading,
-            value: _valueCheckBox2,
-            onChanged: _valueCheckBox2Changed
-        ),
-      ),
-    );*/
-
-
-    buttonReg = Container(
+  Container _createButtonReg(){
+    return Container(
         margin: EdgeInsets.all(8.0),
         child: SizedBox(
           width: double.infinity,
@@ -287,7 +263,7 @@ class _RegPageState extends State<RegPage>{
   }
 
   Container _createCheckBox1(String title){
-    return checkBox1 = Container(
+    return Container(
       margin:  EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
       child: SizedBox(
         width: double.infinity,
@@ -302,7 +278,7 @@ class _RegPageState extends State<RegPage>{
   }
 
   Container _createCheckBox2(String title){
-    return checkBox1 = Container(
+    return Container(
       margin:  EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
       child: SizedBox(
         width: double.infinity,

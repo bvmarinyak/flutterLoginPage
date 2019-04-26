@@ -68,9 +68,9 @@ class _LoginPageState extends State<LoginPage>{
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        loginWidget,
-        passwordWidget,
-        buttonEnter,
+        _createLogin(),
+        _createPassword(),
+        _createButtonEnter(),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -106,7 +106,10 @@ class _LoginPageState extends State<LoginPage>{
   @override
   void initState(){
     super.initState();
-    loginWidget = Container(
+  }
+
+  Container _createLogin(){
+    return Container(
       padding: EdgeInsets.all(8.0),
       margin: EdgeInsets.only(bottom: 20.0),
       //margin: EdgeInsets.all(8),
@@ -127,8 +130,10 @@ class _LoginPageState extends State<LoginPage>{
         },
       ),
     );
+  }
 
-    passwordWidget = Container(
+  Container _createPassword(){
+    return Container(
       padding: EdgeInsets.all(8.0),
       margin: EdgeInsets.only(bottom: 20.0),
       //margin: EdgeInsets.all(8),
@@ -149,10 +154,10 @@ class _LoginPageState extends State<LoginPage>{
         },
       ),
     );
+  }
 
-
-
-    buttonEnter = Container(
+  Container _createButtonEnter(){
+    return Container(
         margin: EdgeInsets.all(8.0),
         child: SizedBox(
           width: double.infinity,
